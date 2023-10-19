@@ -4,6 +4,18 @@
 // protein, carbs and fat properties
 // Be sure to test those methods on the instances you created earlier to make sure they work
 
+class Human {
+  constructor(name, gender, age, calories){
+    this.name = name;
+    this.gender = gender;
+    this.age = age;
+    this.calories = calories;
+  }
+  eatFood(food) {
+    this.calories += food;
+  }
+}
+
 // Exercise 2
 // Create a class Food with properties name, protein, carbs, fat
 
@@ -21,4 +33,4 @@
 // Exercise 4
 // Create a subclass Woman from class Human, it should have it's gender set to 'female' automatically
 
-// Create instances of each class and print them to the console to confirm they work
+// Create instances of each class and print them to the console to confirm they workp
