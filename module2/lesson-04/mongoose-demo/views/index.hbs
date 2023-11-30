@@ -1,0 +1,7 @@
+<h1>Users list</h1>
+
+<ul>
+    {{#each data}}
+        <li><a href="/profile/{{this.username}}">{{this.username}}</a> is {{this.age}} years old</li>
+    {{/each}}
+</ul>
