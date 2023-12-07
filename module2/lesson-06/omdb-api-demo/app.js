@@ -1,8 +1,8 @@
 require("dotenv").config(); // Loads the values from .env file to process.env
 const hbs = require("hbs"); // Views
 const path = require("path"); // joins two directories or files
-const axios = require("axios"); // make calls to external APIs
-const morgan = require("morgan"); // logger, show on the terminal which route was recently called
+const axios = require("axios"); // make calls/requests to external APIs
+// const morgan = require("morgan"); // logger, show on the terminal which route was recently called
 const express = require("express"); // used to make express server + application
 const app = express();
 const PORT = 8000;
@@ -17,13 +17,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true })); // get form data from the client to the server
 
+// Home Route
 app.get("/", (req, res) => {
   res.render("index");
 });
 
 app.get("/searchResults", (req, res) => {
   // req.query --> Query String
-  console.log('req.query',req.query)
+  // console.log('req.query',req.query)
   const { movieName } = req.query; // --> const movieName = req.query.movieName
   const lowercaseMovieName = movieName.toLowerCase();
 
@@ -33,15 +34,15 @@ app.get("/searchResults", (req, res) => {
     )
     .then((OMDBResponse) => {
       const { Search, totalResults } = OMDBResponse.data;
-      console.log(OMDBResponse.data)
+      // console.log(OMDBResponse.data)
 
       res.render("search-results", { movieName, Search, totalResults });
     })
     .catch((error) => console.log(error));
 });
-
+//  Display a single movie route
 app.get("/movie/:movieId", (req, res) => {
-  console.log(req.params);
+  console.log("req.params",req.params);
   const { movieId } = req.params;
 
   axios
@@ -49,7 +50,7 @@ app.get("/movie/:movieId", (req, res) => {
       `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_Key}&i=${movieId}`
     )
     .then((OMDBMovie) => {
-      console.log(OMDBMovie.data);
+      console.log("OMDBMovie data",OMDBMovie.data);
       const movie = OMDBMovie.data;
 
       res.render("movie", { movie });
